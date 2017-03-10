@@ -9,6 +9,7 @@ public class Schoolboy implements Pupil {
 
     private String secondName;
     private Register[] registry;
+    private int registrySize;
 
     public Schoolboy(String secondName, int size) {
         registry = new Register[size];
@@ -21,6 +22,7 @@ public class Schoolboy implements Pupil {
 
     public void setRegistry(Register[] registry) {
         this.registry = registry;
+        registrySize = registry.length;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class Schoolboy implements Pupil {
 
     @Override
     public int getRegistrySize() {
-        return registry.length;
+        return registrySize;
     }
 
     @Override
@@ -49,7 +51,11 @@ public class Schoolboy implements Pupil {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Schoolboy clone = (Schoolboy) super.clone();
+        for (int i = 0; i < getRegistrySize(); i++) {
+            clone.addRegistryRecord(getRegistry()[i].getSubject(), getRegistry()[i].getMark());
+        }
+        return clone;
     }
 
     public void setSecondName(String secondName) {
@@ -60,13 +66,20 @@ public class Schoolboy implements Pupil {
         if (this.registry == null) {
             this.registry = registers;
         } else {
-            int prevLength = this.registry.length;
-            int newLenght = this.registry.length + registers.length;
-            this.registry = Arrays.copyOf(this.registry, newLenght);
-            for (int i = prevLength; i < newLenght; i++) {
-                this.registry[i] = registers[i - prevLength];
+            int newLenght = registers.length;
+            if (registrySize+newLenght > this.registry.length) {
+                newLenght = this.registry.length + registers.length;
             }
+            this.registry = Arrays.copyOf(this.registry, newLenght);
+            for (int i = registrySize; i < newLenght; i++) {
+                this.registry[i] = registers[i-registrySize];
+            }
+            registrySize+=newLenght;
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("Schoolboy-%1$s-%2$s", secondName, registrySize);
+    }
 }

@@ -25,7 +25,30 @@ public class Main {
         Pupil student = Pupils.createInstance("Ivanov",5);
         Pupils.setPupilFactory(new SchoolboyFactory());
         Pupil schoolboy = Pupils.createInstance("Vasya",5);
-        student
+
+        System.out.println(student);
+        System.out.println(schoolboy);
+        Pupil studentClone = null;
+        Pupil schoolClone = null;
+        try {
+            studentClone = (Pupil)student.clone();
+            schoolClone  = (Pupil)schoolboy.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(studentClone);
+        System.out.println(schoolClone);
+
+        schoolClone.addRegistryRecord("new subject",5);
+        studentClone.addRegistryRecord("new",4);
+        studentClone.addRegistryRecord("new1",5);
+
+
+        System.out.println(studentClone);
+        System.out.println(schoolClone);
+        System.out.println(student);
+        System.out.println(schoolboy);
 
 
     }
