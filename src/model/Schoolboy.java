@@ -13,6 +13,9 @@ public class Schoolboy implements Pupil {
 
     public Schoolboy(String secondName, int size) {
         registry = new Register[size];
+        for (int i = 0; i < registry.length; i++) {
+            registry[i] = new Register("", 0);
+        }
         this.secondName = secondName;
     }
 
@@ -25,6 +28,7 @@ public class Schoolboy implements Pupil {
         registrySize = registry.length;
     }
 
+
     @Override
     public void addRegistryRecord(String subject, int mark) {
         addMarks(new Register(subject, mark));
@@ -36,12 +40,22 @@ public class Schoolboy implements Pupil {
 
     @Override
     public int getRegistrySize() {
-        return registrySize;
+        return registry.length;
     }
 
     @Override
     public int getMark(int index) {
         return registry[index].getMark();
+    }
+
+    @Override
+    public void setSubject(int index, String value) {
+        registry[index].setSubject(value);
+    }
+
+    @Override
+    public void setMark(int index, int value) {
+        registry[index].setMark(value);
     }
 
     @Override
@@ -52,9 +66,12 @@ public class Schoolboy implements Pupil {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Schoolboy clone = (Schoolboy) super.clone();
+        clone.registry = new Register[this.registry.length];
+        clone.registrySize = 0;
         for (int i = 0; i < getRegistrySize(); i++) {
             clone.addRegistryRecord(getRegistry()[i].getSubject(), getRegistry()[i].getMark());
         }
+
         return clone;
     }
 
@@ -67,19 +84,47 @@ public class Schoolboy implements Pupil {
             this.registry = registers;
         } else {
             int newLenght = registers.length;
-            if (registrySize+newLenght > this.registry.length) {
+            if (registrySize + newLenght > this.registry.length) {
                 newLenght = this.registry.length + registers.length;
             }
-            this.registry = Arrays.copyOf(this.registry, newLenght);
-            for (int i = registrySize; i < newLenght; i++) {
-                this.registry[i] = registers[i-registrySize];
+            this.registry = Arrays.copyOf(this.registry, Math.max(this.registry.length, newLenght));
+            for (int i = registrySize; i < newLenght + registrySize; i++) {
+                this.registry[i] = registers[i - registrySize];
             }
-            registrySize+=newLenght;
+            registrySize += newLenght;
         }
     }
 
     @Override
     public String toString() {
         return String.format("Schoolboy-%1$s-%2$s", secondName, registrySize);
+    }
+
+    private class Register {
+
+
+        public Register(String subject, int mark) {
+            this.subject = subject;
+            this.mark = mark;
+        }
+
+        private int mark;
+        private String subject;
+
+        public int getMark() {
+            return mark;
+        }
+
+        public void setMark(int marks) {
+            this.mark = marks;
+        }
+
+        public String getSubject() {
+            return subject;
+        }
+
+        public void setSubject(String subjects) {
+            this.subject = subjects;
+        }
     }
 }

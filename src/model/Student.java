@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Created by ���� on 09.03.2017.
  */
-public class Student implements Pupil, Cloneable {
+public class Student implements Pupil {
 
     private String secondName;
     private int[] marks;
@@ -42,6 +42,16 @@ public class Student implements Pupil, Cloneable {
     }
 
     @Override
+    public void setSubject(int index, String value) {
+        subjects[index] = value;
+    }
+
+    @Override
+    public void setMark(int index, int value) {
+        marks[index] = value;
+    }
+
+    @Override
     public String getSubject(int index) {
         return subjects[index];
     }
@@ -49,6 +59,10 @@ public class Student implements Pupil, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Student clone = (Student) super.clone();
+        clone.marks = new int[this.marks.length];
+        clone.subjects  = new String[this.subjects.length];
+        clone.subjectsSize = 0;
+        clone.marksSize = 0;
         for (int i = 0; i < getRegistrySize(); i++) {
             clone.addRegistryRecord(getSubject(i), getMark(i));
         }
@@ -86,8 +100,8 @@ public class Student implements Pupil, Cloneable {
             if (marksSize + newLenght > this.marks.length) {
                 newLenght = this.marks.length + marks.length;
             }
-            this.marks = Arrays.copyOf(this.marks, newLenght);
-            for (int i = marksSize; i < newLenght; i++) {
+            this.marks = Arrays.copyOf(this.marks, Math.max(newLenght,this.marks.length));
+            for (int i = marksSize; i < newLenght+marksSize; i++) {
                 this.marks[i] = marks[i-marksSize];
             }
             marksSize+=newLenght;
@@ -103,8 +117,9 @@ public class Student implements Pupil, Cloneable {
             if (subjectsSize + newLenght > this.subjects.length) {
                 newLenght = this.subjects.length + subjects.length;
             }
-            this.subjects = Arrays.copyOf(this.subjects, newLenght);
-            for (int i = subjectsSize; i < newLenght; i++) {
+            this.subjects = Arrays.copyOf(this.subjects,Math.max(newLenght,this.subjects.length));
+
+            for (int i = subjectsSize; i < newLenght+subjectsSize; i++) {
                 this.subjects[i] = subjects[i-subjectsSize];
             }
             subjectsSize+=newLenght;

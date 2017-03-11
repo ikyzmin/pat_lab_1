@@ -1,5 +1,6 @@
 import factory.SchoolboyFactory;
 import model.Pupil;
+import model.Schoolboy;
 import model.Student;
 import util.Pupils;
 
@@ -22,33 +23,49 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Pupil student = Pupils.createInstance("Ivanov",5);
+
+        System.out.println(properties == Properties.getInstance());
+        Pupil student = Pupils.createInstance("Ivanov", 5);
         Pupils.setPupilFactory(new SchoolboyFactory());
-        Pupil schoolboy = Pupils.createInstance("Vasya",5);
+        Pupil schoolboy = Pupils.createInstance("Vasya", 5);
 
         System.out.println(student);
         System.out.println(schoolboy);
+
+        schoolboy.addRegistryRecord("new subject", 5);
+        student.addRegistryRecord("new", 4);
+        student.addRegistryRecord("new1", 5);
         Pupil studentClone = null;
         Pupil schoolClone = null;
         try {
-            studentClone = (Pupil)student.clone();
-            schoolClone  = (Pupil)schoolboy.clone();
+            studentClone = (Pupil) student.clone();
+            schoolClone = (Pupil) schoolboy.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-
-        System.out.println(studentClone);
+        System.out.println("clone");
+      //  System.out.println(studentClone);
         System.out.println(schoolClone);
+        schoolboy.setSubject(0,"clone subject");
+        schoolboy.setMark(0,4);
+        Pupils.printRegistry(schoolboy);
+        Pupils.printRegistry(schoolClone);
+        Schoolboy schoolboy1 = new Schoolboy("Petrov",3);
+        schoolboy1.setSubject(0,"sfs");
 
-        schoolClone.addRegistryRecord("new subject",5);
-        studentClone.addRegistryRecord("new",4);
-        studentClone.addRegistryRecord("new1",5);
+     //   studentClone.setMark(0, 3);
+     //   studentClone.setSubject(1, "clone");
+
+        //System.out.println(Pupils.getAverageMarkValue(studentClone));
+      //  Pupils.printRegistry(studentClone);
+    //    Pupils.printRegistry(student);
 
 
-        System.out.println(studentClone);
+   /*     System.out.println(studentClone);
         System.out.println(schoolClone);
         System.out.println(student);
-        System.out.println(schoolboy);
+        System.out.println(schoolboy);*/
+
 
 
     }

@@ -9,6 +9,8 @@ public interface Pupil extends Cloneable {
     String getSecondName();
     int getRegistrySize();
     int getMark(int index);
+    void setSubject(int index,String value);
+    void setMark(int index,int value);
     String getSubject(int index);
     Object clone() throws CloneNotSupportedException;
 
