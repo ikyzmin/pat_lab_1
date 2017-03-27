@@ -3,6 +3,7 @@ package util;
 import factory.PupilFactory;
 import factory.StudentFactory;
 import model.Pupil;
+import model.PupilSyncWrapper;
 
 /**
  * Created by Илья on 09.03.2017.
@@ -33,5 +34,9 @@ public class Pupils {
             sum += pupil.getMark(i);
         }
         return (float) sum / size;
+    }
+
+    public static Pupil synchronizedPupil(Pupil p) {
+        return PupilSyncWrapper.wrap(p);
     }
 }
