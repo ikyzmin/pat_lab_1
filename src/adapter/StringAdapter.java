@@ -12,43 +12,20 @@ public class StringAdapter {
     private OutputStream target;
     private String[] adaptee;
 
-    public StringAdapter(String[] adaptee) {
-        this.adaptee = adaptee;
+    public StringAdapter() {
     }
 
     public void init(OutputStream stream) {
         target = stream;
     }
 
-    public void adapt() throws IOException {
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(target);
-        PrintWriter writer = new PrintWriter(outputStreamWriter);
+    public void adapt(String[] adaptee) throws IOException {
         for (String item : adaptee) {
-            writer.println(item);
+            target.write(item.getBytes());
+            target.write('\n');
         }
-        writer.close();
+        //target.close();
     }
 
-    public String[] readFromSource(InputStream source) throws IOException {
-        if (source == null) return null;
-        InputStreamReader inputStreamReader = new InputStreamReader(source);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String line;
-        ArrayList<String> lines = new ArrayList<>();
-        int i = 0;
-        while ((line = bufferedReader.readLine()) != null) {
-            if (adaptee == null) {
-                lines.add(line);
-            } else {
-                adaptee[i] = line;
-                i++;
-            }
-        }
-        if (adaptee == null) {
-            adaptee = (String[]) lines.toArray();
-        }
-        bufferedReader.close();
-        return adaptee;
-    }
 
 }

@@ -100,7 +100,7 @@ public class Schoolboy implements Pupil {
         return String.format("Schoolboy-%1$s-%2$s", secondName, registrySize);
     }
 
-    private class Register {
+    class Register {
 
 
         public Register(String subject, int mark) {
@@ -126,5 +126,14 @@ public class Schoolboy implements Pupil {
         public void setSubject(String subjects) {
             this.subject = subjects;
         }
+
+        @Override
+        public String toString() {
+            return String.format("Subject: %s\nMark: %s", subject, mark);
+        }
+    }
+
+    public SchoolboyIterator iteator() {
+        return new SchoolboyIterator(this);
     }
 }
