@@ -24,7 +24,7 @@ public class StringAdapter {
             target.write(item.getBytes());
             target.write('\n');
         }
-        //target.close();
+       // target.close();
     }
 
 

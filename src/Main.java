@@ -2,7 +2,6 @@ import adapter.StringAdapter;
 import factory.SchoolboyFactory;
 import model.Pupil;
 import model.Schoolboy;
-import model.SchoolboyIterator;
 import strategy.BubbleSort;
 import strategy.InsertionSort;
 import strategy.SortStrategy;
@@ -25,7 +24,7 @@ public class Main {
             schoolboy.addRegistryRecord("sub1", 5);
             schoolboy.addRegistryRecord("sub2", 2);
             schoolboy.addRegistryRecord("sub3", 3);
-            SchoolboyIterator iterator = schoolboy.iteator();
+            Schoolboy.SchoolboyIterator iterator = schoolboy.iteator();
             while (iterator.hasNext()) {
                 System.out.println(iterator.next());
             }

@@ -1,6 +1,7 @@
 package model;
 
 import com.sun.deploy.util.ArrayUtil;
+import util.Pupils;
 
 import java.util.Arrays;
 
@@ -136,6 +137,6 @@ public class Student implements Pupil {
 
     @Override
     public String toString() {
-        return String.format("Student-%1$s-%2$s", secondName, getRegistrySize());
+        return String.format("Student-%1$s-%2$s", secondName, Pupils.getAverageMarkValue(this));
     }
 }

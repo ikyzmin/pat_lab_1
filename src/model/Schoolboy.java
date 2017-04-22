@@ -1,6 +1,9 @@
 package model;
 
+import util.Pupils;
+
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Created by Илья on 09.03.2017.
@@ -97,7 +100,7 @@ public class Schoolboy implements Pupil {
 
     @Override
     public String toString() {
-        return String.format("Schoolboy-%1$s-%2$s", secondName, registrySize);
+        return String.format("Schoolboy-%1$s-%2$s", secondName, Pupils.getAverageMarkValue(this));
     }
 
     class Register {
@@ -136,4 +139,28 @@ public class Schoolboy implements Pupil {
     public SchoolboyIterator iteator() {
         return new SchoolboyIterator(this);
     }
+
+    public class SchoolboyIterator implements Iterator<Register> {
+
+
+        private Schoolboy schoolboy;
+        private int index = 0;
+
+        public SchoolboyIterator(Schoolboy schoolboy) {
+            this.schoolboy = schoolboy;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index >= 0 && index < schoolboy.getRegistrySize();
+        }
+
+        @Override
+        public Schoolboy.Register next() {
+            Schoolboy.Register value = schoolboy.getRegistry()[index];
+            index++;
+            return value;
+        }
+    }
+
 }
