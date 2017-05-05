@@ -13,6 +13,7 @@ public class StudentStringDAO extends DAO<Student> {
 
     public StudentStringDAO(String filename) {
         super(filename);
+        this.filename += ".txt";
     }
 
     @Override
@@ -30,17 +31,17 @@ public class StudentStringDAO extends DAO<Student> {
     @Override
     public Student getEntity(int index) throws IOException {
         Pupils.setPupilFactory(new StudentFactory());
-        int registrySize=0;
-        int linesToSkip=0;
+        int registrySize = 0;
+        int linesToSkip = 0;
         registrySize = Integer.valueOf(reader.readLine());
-        linesToSkip = 2 * registrySize+1;
+        linesToSkip = 2 * registrySize + 1;
 
         for (int i = 0; i < index; i++) {
             for (int j = 0; j < linesToSkip; j++) {
                 reader.readLine();
             }
             registrySize = Integer.valueOf(reader.readLine());
-            linesToSkip = 2 * registrySize+1;
+            linesToSkip = 2 * registrySize + 1;
         }
         Student student = (Student) Pupils.createInstance(reader.readLine(), registrySize);
         for (int i = 0; i < registrySize; i++) {

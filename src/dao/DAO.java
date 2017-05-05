@@ -9,6 +9,7 @@ public abstract class DAO<E> {
 
     protected BufferedWriter writer;
     protected BufferedReader reader;
+    protected String filename;
 
     public DAO(String filename) {
         File file = new File(filename);
@@ -19,12 +20,13 @@ public abstract class DAO<E> {
                 e.printStackTrace();
             }
         }
+        this.filename = filename;
         init(filename);
     }
 
     abstract void init(String filename);
 
-    public abstract E getEntity(int index) throws IOException;
+    public abstract E getEntity(int index) throws IOException, ClassNotFoundException;
 
     public abstract void saveEntity(E entity) throws IOException;
 }

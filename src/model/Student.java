@@ -11,6 +11,9 @@ import java.util.Arrays;
  */
 public class Student implements Pupil, Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+
     private String secondName;
     private int[] marks;
     private String[] subjects;

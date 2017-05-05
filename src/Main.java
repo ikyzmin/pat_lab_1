@@ -1,6 +1,7 @@
 import adapter.StringAdapter;
 import dao.DAO;
 import dao.DAOFactory;
+import dao.SerializableStudentDAOFactory;
 import dao.StringStudentDAOFactory;
 import factory.SchoolboyFactory;
 import factory.StudentFactory;
@@ -22,28 +23,35 @@ public class Main {
 
     public static void main(String[] args) {
         DAOFactory daoFactory;
-        daoFactory = new StringStudentDAOFactory("students.txt");
+        daoFactory = new StringStudentDAOFactory("students");
         DAO studentDAO = daoFactory.getDAO();
         Pupils.setPupilFactory(new StudentFactory());
+        int selection = 5;
         Pupil pupil = null;
-        for (int i=0;i<10;i++) {
-            pupil = Pupils.createInstance("Ivan Ivanov", 5);
+        for (int i = 0; i < 10; i++) {
+            pupil = Pupils.createInstance(pupilsNames[i], 5);
             Random random = new Random();
             pupil.addRegistryRecord("sub", random.nextInt(4) + 1);
             pupil.addRegistryRecord("sub1", random.nextInt(4) + 1);
             pupil.addRegistryRecord("sub2", random.nextInt(4) + 1);
             pupil.addRegistryRecord("sub3", random.nextInt(4) + 1);
             pupil.addRegistryRecord("sub4", random.nextInt(4) + 1);
+            if (i == selection) {
+                System.out.println(pupil);
+            }
             try {
                 studentDAO.saveEntity(pupil);
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         Student student;
         try {
-            student = (Student) studentDAO.getEntity(5);
+            student = (Student) studentDAO.getEntity(selection);
+            System.out.println(student);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
