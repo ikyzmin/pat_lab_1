@@ -3,12 +3,13 @@ package model;
 import com.sun.deploy.util.ArrayUtil;
 import util.Pupils;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Created by ���� on 09.03.2017.
  */
-public class Student implements Pupil {
+public class Student implements Pupil, Serializable {
 
     private String secondName;
     private int[] marks;
