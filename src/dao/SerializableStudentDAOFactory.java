@@ -1,8 +1,5 @@
 package dao;
 
-/**
- * Created by Илья on 05.05.2017.
- */
 public class SerializableStudentDAOFactory extends DAOFactory {
 
     public SerializableStudentDAOFactory(String filename) {
@@ -11,6 +8,6 @@ public class SerializableStudentDAOFactory extends DAOFactory {
 
     @Override
     public DAO getDAO() {
-        return null;
+        return new StudentSerializableDAO(filename);
     }
 }

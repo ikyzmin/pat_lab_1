@@ -12,6 +12,6 @@ public class StringStudentDAOFactory extends DAOFactory {
 
     @Override
     public DAO getDAO() {
-        return null;
+        return new StudentStringDAO(filename);
     }
 }
